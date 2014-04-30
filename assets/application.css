@@ -1,0 +1,34 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.navbar {
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  margin-bottom: 20px;
+}
+
+.navbar .navbar-brand {
+  padding-left: 0px;
+}
+
+.navbar .navbar-nav.navbar-right:last-child {
+  margin-right: -30px;
+}
+
+
+.chart .bar {
+  fill: steelblue;
+}
+
+.chart .axis {
+  font: 10px sans-serif;
+}
+
+.chart .axis path,
+.chart .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

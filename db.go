@@ -3,6 +3,7 @@ package sieve
 import (
 	"encoding/json"
 	"sync"
+	"time"
 )
 
 // NewDB returns a new instance of a database.
@@ -25,6 +26,7 @@ func (db *DB) Append(row *Row) {
 
 	// Set the row index and update
 	row.index = len(db.Rows)
+	row.timestamp = time.Now().UTC().Round(time.Millisecond)
 	db.Rows = append(db.Rows, row)
 
 	// Notify all subscribers.
@@ -89,13 +91,19 @@ func (db *DB) Unsubscribe(ch chan *Row) {
 
 // Row represents a single element in the database.
 type Row struct {
-	Data  map[string]interface{}
-	index int
+	Data      map[string]interface{}
+	index     int
+	timestamp time.Time
 }
 
 // Index returns the row index in the database.
 func (r *Row) Index() int {
 	return r.index
+}
+
+// Timestamp returns the row's creation timestamp.
+func (r *Row) Timestamp() time.Time {
+	return r.timestamp
 }
 
 // MarshalJSON encodes a row into a JSON structure.
@@ -108,6 +116,7 @@ func (r *Row) MarshalJSON() ([]byte, error) {
 
 	// Add the index to the map.
 	data["index"] = r.index
+	data["timestamp"] = r.timestamp
 
 	return json.Marshal(data)
 }

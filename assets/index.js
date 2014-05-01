@@ -1,6 +1,7 @@
 var Sieve = {};
 
 (function() {
+
 // The database containing all data streamed from the server.
 var db = {rows:[]}
 
@@ -31,4 +32,5 @@ Sieve.subscribe = function() {
     }
   }, false);
 }
+
 })();

@@ -2,6 +2,7 @@ package sieve
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"path"
 	"strconv"
@@ -64,10 +65,13 @@ type SubscribeHandler struct {
 
 // ServeHTTP sends the database data.
 func (h *SubscribeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	index, err := strconv.Atoi(r.FormValue("index"))
-	if err != nil && len(r.FormValue("index")) > 0 {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
+	var index, err = strconv.Atoi(r.Header.Get("Last-Event-ID"))
+	if r.Header.Get("Last-Event-ID") != "" {
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		index += 1
 	}
 
 	// Create a channel for subscribing to database updates.
@@ -93,9 +97,8 @@ loop:
 			}
 
 			// Send row as server-sent event.
-			w.Write([]byte("data: "))
-			w.Write(b)
-			w.Write([]byte("\n\n"))
+			fmt.Fprintf(w, "id: %d\n", row.Index())
+			fmt.Fprintf(w, "data: %s\n\n", b)
 			w.(http.Flusher).Flush()
 		}
 	}

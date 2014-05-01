@@ -17,8 +17,6 @@ var g = {
   }
 };
 
-var yAxisLabel = g.axes.y.append("text");
-
 var path = g.line.append("path");
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50};
@@ -84,13 +82,6 @@ Sieve.update = function() {
 
   g.axes.x.call(xAxis);
   g.axes.y.call(yAxis)
-
-  yAxisLabel
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Price ($)");
 
   path
       .datum(db.rows)

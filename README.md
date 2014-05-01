@@ -1,4 +1,4 @@
-sieve ![Project status](http://img.shields.io/status/highly%20experimental.png?color=red)
+sieve ![Project status](http://img.shields.io/status/experimental.png?color=red)
 =====
 
 A command line utility for graphing piped data. Sieve is used when you have

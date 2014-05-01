@@ -18,7 +18,11 @@ body {
 }
 
 
-.chart .bar {
+.chart {
+  font: 10px sans-serif;
+}
+
+.chart .line {
   fill: steelblue;
 }
 
@@ -31,4 +35,10 @@ body {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+}
+
+.chart .line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
 }
